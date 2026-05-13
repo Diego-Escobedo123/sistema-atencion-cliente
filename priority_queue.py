@@ -2,16 +2,7 @@
 Priority Queue implementation using a sorted linked list.
 '''
 
-class Node:
-    def __init__(self, ticket_id, client, description, priority):
-        self.ticket_id = ticket_id
-        self.client = client
-        self.description = description
-        self.priority = priority
-        self.next = None
-
-    def __repr__(self):
-        return f'[{self.ticket_id}] {self.client} | Priority: {self.priority} | {self.description}'
+from ticket import Ticket
 
 
 class PriorityQueue:
@@ -40,7 +31,7 @@ class PriorityQueue:
     def insert(self, client, description, priority):
         self._counter += 1
         ticket_id = f'TKT-{self._counter:04d}'
-        new_node = Node(ticket_id, client, description, priority)
+        new_node = Ticket(ticket_id, client, description, priority)
 
         if self.start is None or priority < self.start.priority:
             new_node.next = self.start
@@ -81,14 +72,14 @@ class PriorityQueue:
 
         while current is not None:
             if current.ticket_id == ticket_id:
-                # Eliminar de la posición actual
+                # Remove from current position
                 if prev is None:
                     self.start = current.next
                 else:
                     prev.next = current.next
                 current.next = None
 
-                # Reinsertar con una nueva prioridad
+                # Re-insert with new priority
                 current.priority = new_priority
                 if self.start is None or new_priority < self.start.priority:
                     current.next = self.start
