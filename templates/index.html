@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Help Desk</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <nav class="navbar navbar-dark bg-dark px-4">
+        <span class="navbar-brand fw-bold">Help Desk</span>
+    </nav>
+
+    <div class="container-fluid py-4 px-4">
+        <div class="row g-4">
+
+            <div class="col-md-4">
+
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Nuevo Ticket</h5>
+                        <form id="ticket-form">
+                            <div class="mb-2">
+                                <input type="text" id="client" class="form-control" placeholder="Nombre del cliente" required>
+                            </div>
+                            <div class="mb-2">
+                                <textarea id="description" class="form-control" placeholder="Describe el problema" rows="3" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <select id="priority" class="form-select">
+                                    <option value="1">1 - Crítico</option>
+                                    <option value="2">2 - Alto</option>
+                                    <option value="3" selected>3 - Medio</option>
+                                    <option value="4">4 - Bajo</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-dark w-100">Agregar Ticket</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Buscar Ticket</h5>
+                        <div class="input-group">
+                            <input type="text" id="search-id" class="form-control" placeholder="Ej. TKT-0001">
+                            <button class="btn btn-dark" onclick="searchTicket()">Buscar</button>
+                        </div>
+                        <div id="search-result" class="mt-3"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-8">
+
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="card-title mb-0">Cola (<span id="total">0</span>)</h5>
+                            <button class="btn btn-dark btn-sm" onclick="attendNext()">Atender Siguiente</button>
+                        </div>
+                        <div id="queue-list">
+                            <p class="text-muted text-center">No hay tickets en cola.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Historial</h5>
+                        <div id="history-list">
+                            <p class="text-muted text-center">No hay tickets atendidos.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="modal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Actualizar Prioridad</h5>
+                    <button type="button" class="btn-close" onclick="closeModal()"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted" id="modal-ticket-id"></p>
+                    <select id="modal-priority" class="form-select">
+                        <option value="1">1 - Crítico</option>
+                        <option value="2">2 - Alto</option>
+                        <option value="3">3 - Medio</option>
+                        <option value="4">4 - Bajo</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-dark" onclick="confirmUpdate()">Actualizar</button>
+                    <button class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
